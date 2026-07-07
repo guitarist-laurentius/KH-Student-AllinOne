@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경희중학교 학생관리</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NeoDunggeunmo.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* 기본 초기화 및 폰트 설정 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'NeoDunggeunmo', sans-serif;
+            image-rendering: pixelated; /* 도트/픽셀 감성 극대화 */
+        }
+
+        body {
+            /* [핵심] 외부 링크(URL) 오류 없이 코드 자체로 픽셀 학교와 운동장을 그려내는 SVG 배경 */
+            background-color: #87CEEB; /* 맑은 하늘색 */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'%3E%3Crect width='160' height='90' fill='%2387CEEB'/%3E%3Crect x='125' y='10' width='12' height='12' fill='%23FFDF00'/%3E%3Cpath d='M15 18h20v6H15zM20 13h10v5H20zM115 22h25v7h-25zM120 16h15v6h-15z' fill='white' opacity='0.9'/%3E%3Crect x='45' y='40' width='70' height='30' fill='%23FFCC80'/%3E%3Crect x='43' y='36' width='74' height='4' fill='%23E65100'/%3E%3Crect x='52' y='46' width='10' height='10' fill='%23E1F5FE'/%3E%3Crect x='68' y='46' width='10' height='10' fill='%23E1F5FE'/%3E%3Crect x='82' y='46' width='10' height='10' fill='%23E1F5FE'/%3E%3Crect x='98' y='46' width='10' height='10' fill='%23E1F5FE'/%3E%3Crect x='74' y='58' width='12' height='12' fill='%23795548'/%3E%3Crect x='0' y='70' width='160' height='20' fill='%237CBE30'/%3E%3Crect x='74' y='70' width='12' height='20' fill='%23D7CCC8'/%3E%3Cpath d='M10 74h4v4h-4zM30 82h3v3h-3zM130 73h4v4h-4zM145 83h3v3h-3zM50 80h4v4h-4zM100 75h3v3h-3z' fill='%2368A325'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* 메인 박스 (마인크래프트 UI 나무 상자 스타일) */
+        .container {
+            background: rgba(101, 67, 33, 0.95); /* 밝은 배경과 대비되도록 진한 참나무색 적용 */
+            border: 6px solid #3d2314;
+            box-shadow: 0 0 0 6px #000, 0 15px 40px rgba(0,0,0,0.5);
+            padding: 45px 30px;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+        }
+
+        /* 상단 제목 */
+        h1 {
+            color: #ffffff;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            text-shadow: 4px 4px 0px #000;
+            letter-spacing: 1px;
+            word-break: keep-all;
+        }
+
+        /* 세로 1열 메뉴 리스트 */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        /* 마인크래프트 버튼 스타일 */
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background: #7c7c7c;
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 16px 20px;
+            font-size: 1.25rem;
+            border: 4px solid #000;
+            box-shadow: inset -4px -4px 0px #3a3a3a, inset 4px 4px 0px #b8b8b8;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            word-break: keep-all;
+        }
+
+        /* 마우스 호버(올렸을 때) 효과 - 잔디 블록 색상 */
+        .menu-item:hover {
+            background: #5c8e32;
+            box-shadow: inset -4px -4px 0px #2e4e1a, inset 4px 4px 0px #92cf5b;
+            color: #ffffa0;
+            transform: scale(1.02);
+        }
+
+        /* 클릭했을 때 효과 */
+        .menu-item:active {
+            transform: scale(0.98);
+            box-shadow: inset 4px 4px 0px #2e4e1a, inset -4px -4px 0px #92cf5b;
+        }
+
+        /* 아이콘 스타일 */
+        .menu-item i {
+            font-size: 1.6rem;
+            margin-right: 18px;
+            width: 30px;
+            text-align: center;
+            filter: drop-shadow(2px 2px 0px #000);
+        }
+
+        /* 텍스트 스타일 */
+        .menu-item span {
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        /* 하단 푸터 */
+        .footer {
+            margin-top: 35px;
+            color: #c0c0c0;
+            font-size: 0.85rem;
+            text-shadow: 1px 1px 0px #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>경희중학교 학생관리</h1>
+        
+        <div class="menu-list">
+            <a href="https://guitarist-laurentius.github.io/KH-Student/" target="_blank" rel="noopener noreferrer" class="menu-item">
+                <i class="fa-solid fa-address-book" style="color: #ffaa00;"></i>
+                <span>학생 명단관리</span>
+            </a>
+
+            <a href="https://guitarist-laurentius.github.io/Seat-planner/" target="_blank" rel="noopener noreferrer" class="menu-item">
+                <i class="fa-solid fa-chair" style="color: #55ff55;"></i>
+                <span>학생 좌석배치</span>
+            </a>
+
+            <a href="https://guitarist-laurentius.github.io/Class-vote/" target="_blank" rel="noopener noreferrer" class="menu-item">
+                <i class="fa-solid fa-check-to-slot" style="color: #55ffff;"></i>
+                <span>학급 투표</span>
+            </a>
+        </div>
+
+        <div class="footer">
+            © <span id="currentYear"></span> 경희중학교
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
