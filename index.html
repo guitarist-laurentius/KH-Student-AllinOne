@@ -129,7 +129,9 @@
             box-shadow: inset -4px -4px 0px #2a180b, inset 4px 4px 0px #7a4e28;
             padding: 25px;
             width: 90%;
-            max-width: 400px;
+            max-width: 440px;
+            max-height: 90vh;
+            overflow-y: auto;
             color: #fff;
             text-align: left;
         }
@@ -145,6 +147,17 @@
             display: flex;
             flex-direction: column;
             gap: 5px;
+        }
+        .form-group.checkbox-group {
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .form-group.checkbox-group input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
         }
         .form-group label {
             font-size: 0.95rem;
@@ -224,7 +237,7 @@
             }
             .print-table th, .print-table td {
                 border: 2px solid #000;
-                padding: 20px 10px;
+                padding: 18px 10px;
                 text-align: center;
             }
             .print-table th {
@@ -238,7 +251,7 @@
                 font-size: 18pt;
             }
             
-            /* 시간 표시 열의 글자 크기를 크게 변경 */
+            /* 시간 표시 열의 글자 크기 강조 */
             .print-table td:nth-child(2) {
                 font-size: 26pt !important;
                 font-weight: bold !important;
@@ -260,13 +273,14 @@
                 color: #c62828;
             }
 
-            /* 하단 우측 날짜 표기 스타일 */
-            .print-date {
+            /* 하단 우측 메모 표기 스타일 */
+            .print-memo {
                 text-align: right;
                 font-size: 14pt;
                 font-weight: bold;
                 margin-top: 15px;
                 color: #333;
+                white-space: pre-wrap;
             }
         }
     </style>
@@ -307,12 +321,16 @@
     <div class="modal-overlay" id="printModal">
         <div class="modal-box">
             <h2>시간표 인쇄 설정</h2>
+            
+            <!-- 1. 날짜 -->
             <div class="form-group">
                 <label for="inputDate">날짜</label>
                 <input type="date" id="inputDate">
             </div>
+
+            <!-- 2. 시작시각 (1교시) -->
             <div class="form-group">
-                <label>시작 시각 (1교시)</label>
+                <label>시작시각 (1교시)</label>
                 <div class="time-select-group">
                     <select id="startHour">
                         <option value="08">08시</option>
@@ -343,22 +361,62 @@
                     </select>
                 </div>
             </div>
+
+            <!-- 3. 교시당 시간 (분) -->
             <div class="form-group">
                 <label for="lessonDuration">교시당 시간 (분)</label>
                 <input type="number" id="lessonDuration" value="45" min="10" max="120">
             </div>
+
+            <!-- 4. 쉬는시간 (분) -->
+            <div class="form-group">
+                <label for="breakDuration">쉬는시간 (분)</label>
+                <input type="number" id="breakDuration" value="10" min="0" max="60">
+            </div>
+
+            <!-- 5. 몇 교시 후 점심 시간인지? -->
             <div class="form-group">
                 <label for="lunchAfter">몇 교시 후 점심 시간인가요?</label>
                 <select id="lunchAfter">
+                    <option value="3">3교시 후</option>
                     <option value="4" selected>4교시 후</option>
                     <option value="5">5교시 후</option>
                     <option value="6">6교시 후</option>
                 </select>
             </div>
+
+            <!-- 6. 점심시간 몇 분인지? -->
             <div class="form-group">
                 <label for="lunchDuration">점심 시간 (분)</label>
                 <input type="number" id="lunchDuration" value="55" min="10" max="180">
             </div>
+
+            <!-- 7. 급식 없는 날 체크박스 -->
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="noLunch">
+                <label for="noLunch">급식 없는 날 (점심시간 제외)</label>
+            </div>
+
+            <!-- 8. 몇 교시 후 일과를 마치는지? -->
+            <div class="form-group">
+                <label for="totalPeriods">몇 교시 후 일과를 마치나요?</label>
+                <select id="totalPeriods">
+                    <option value="1">1교시 후</option>
+                    <option value="2">2교시 후</option>
+                    <option value="3">3교시 후</option>
+                    <option value="4">4교시 후</option>
+                    <option value="5">5교시 후</option>
+                    <option value="6">6교시 후</option>
+                    <option value="7" selected>7교시 후</option>
+                </select>
+            </div>
+
+            <!-- 9. 하단 메모 기입 란 -->
+            <div class="form-group">
+                <label for="inputMemo">메모 (하단 표기용)</label>
+                <input type="text" id="inputMemo" placeholder="예: 단축수업 진행 / 하교시간 안내 등">
+            </div>
+
             <div class="modal-btns">
                 <button class="btn-modal btn-confirm" onclick="generateAndPrint()">인쇄하기</button>
                 <button class="btn-modal btn-close" onclick="closePrintModal()">취소</button>
@@ -381,8 +439,8 @@
                 <!-- 자바스크립트로 자동 생성 -->
             </tbody>
         </table>
-        <!-- 우측 하단 날짜 표시 영역 -->
-        <div class="print-date" id="printDate"></div>
+        <!-- 우측 하단 메모 표시 영역 -->
+        <div class="print-memo" id="printMemo"></div>
     </div>
 
     <script>
@@ -400,31 +458,30 @@
         }
 
         function generateAndPrint() {
-            const dateVal = document.getElementById("inputDate").value;
             const hourVal = document.getElementById("startHour").value;
             const minuteVal = document.getElementById("startMinute").value;
             
             const lessonDuration = parseInt(document.getElementById("lessonDuration").value) || 45;
+            const breakDuration = parseInt(document.getElementById("breakDuration").value) || 10;
             const lunchAfter = parseInt(document.getElementById("lunchAfter").value) || 4;
             const lunchDuration = parseInt(document.getElementById("lunchDuration").value) || 55;
+            const noLunch = document.getElementById("noLunch").checked;
+            const totalPeriods = parseInt(document.getElementById("totalPeriods").value) || 7;
+            const memoVal = document.getElementById("inputMemo").value.trim();
 
-            if (!dateVal) {
-                alert("날짜를 설정해주세요.");
-                return;
-            }
-
-            const printDateEl = document.getElementById("printDate");
-
-            // 조건별 제목 및 우측 하단 날짜 표기 처리
+            // 상단 제목 처리 (45분 정상 수업 여부에 따른 자동 표기)
             if (lessonDuration === 45) {
                 document.getElementById("printTitle").innerText = "경희중학교 일과 시간표";
-                printDateEl.innerText = ""; // 정상 수업일 경우 날짜 숨김
             } else {
                 document.getElementById("printTitle").innerText = `경희중학교 일과 시간표(${lessonDuration}분 압축수업)`;
-                
-                // 특별 시간표(압축수업)일 경우 우측 하단에 날짜 표시
-                const [year, month, day] = dateVal.split("-");
-                printDateEl.innerText = `시행일: ${year}년 ${parseInt(month)}월 ${parseInt(day)}일`;
+            }
+
+            // 하단 메모 처리
+            const printMemoEl = document.getElementById("printMemo");
+            if (memoVal) {
+                printMemoEl.innerText = `※ ${memoVal}`;
+            } else {
+                printMemoEl.innerText = "";
             }
 
             const tbody = document.getElementById("printTableBody");
@@ -440,9 +497,7 @@
                 return `${h}:${m}`;
             };
 
-            const breakDuration = 10; // 쉬는시간 10분 기본값
-
-            for (let period = 1; period <= 7; period++) {
+            for (let period = 1; period <= totalPeriods; period++) {
                 // 교시 시작/종료 시간 계산
                 let startStr = formatTime(currentTime);
                 currentTime.setMinutes(currentTime.getMinutes() + lessonDuration);
@@ -457,8 +512,8 @@
                 `;
                 tbody.appendChild(tr);
 
-                // 지정 교시 후 점심시간 삽입
-                if (period === lunchAfter) {
+                // 지정 교시 후 점심시간 삽입 (급식 없는 날 체크시 제외)
+                if (!noLunch && period === lunchAfter && period < totalPeriods) {
                     let lunchStart = formatTime(currentTime);
                     currentTime.setMinutes(currentTime.getMinutes() + lunchDuration);
                     let lunchEnd = formatTime(currentTime);
@@ -471,8 +526,8 @@
                         <td>점심 식사</td>
                     `;
                     tbody.appendChild(lunchTr);
-                } else if (period < 7) {
-                    // 쉬는 시간 (10분)
+                } else if (period < totalPeriods) {
+                    // 쉬는 시간
                     currentTime.setMinutes(currentTime.getMinutes() + breakDuration);
                 }
             }
