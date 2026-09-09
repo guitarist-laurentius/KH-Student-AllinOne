@@ -224,7 +224,7 @@
             }
             .print-table th, .print-table td {
                 border: 2px solid #000;
-                padding: 22px 10px;
+                padding: 20px 10px;
                 text-align: center;
             }
             .print-table th {
@@ -236,6 +236,13 @@
             }
             .print-table td {
                 font-size: 18pt;
+            }
+            
+            /* 시간 표시 열의 글자 크기를 크게 변경 */
+            .print-table td:nth-child(2) {
+                font-size: 26pt !important;
+                font-weight: bold !important;
+                letter-spacing: 1px;
             }
             
             /* 컬럼 너비 비율 */
