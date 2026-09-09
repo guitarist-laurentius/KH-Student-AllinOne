@@ -20,7 +20,7 @@
         }
 
         body {
-            /* [핵심] 외부 링크(URL) 오류 없이 코드 자체로 픽셀 학교와 운동장을 그려내는 SVG 배경 */
+            /* 외부 링크 오류 없이 코드 자체로 픽셀 학교와 운동장을 그려내는 SVG 배경 */
             background-color: #87CEEB; /* 맑은 하늘색 */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'%3E%3Crect width='160' height='90' fill='%2387CEEB'/%3E%3Crect x='125' y='10' width='12' height='12' fill='%23FFDF00'/%3E%3Cpath d='M15 18h20v6H15zM20 13h10v5H20zM115 22h25v7h-25zM120 16h15v6h-15z' fill='white' opacity='0.9'/%3E%3Crect x='45' y='40' width='70' height='30' fill='%23FFCC80'/%3E%3Crect x='43' y='36' width='74' height='4' fill='%23E65100'/%3E%3Crect x='52' y='46' width='10' height='10' fill='%23E1F5FE'/%3E%3Crect x='68' y='46' width='10' height='10' fill='%23E1F5FE'/%3E%3Crect x='82' y='46' width='10' height='10' fill='%23E1F5FE'/%3E%3Crect x='98' y='46' width='10' height='10' fill='%23E1F5FE'/%3E%3Crect x='74' y='58' width='12' height='12' fill='%23795548'/%3E%3Crect x='0' y='70' width='160' height='20' fill='%237CBE30'/%3E%3Crect x='74' y='70' width='12' height='20' fill='%23D7CCC8'/%3E%3Cpath d='M10 74h4v4h-4zM30 82h3v3h-3zM130 73h4v4h-4zM145 83h3v3h-3zM50 80h4v4h-4zM100 75h3v3h-3z' fill='%2368A325'/%3E%3C/svg%3E");
             background-size: cover;
@@ -37,7 +37,7 @@
 
         /* 메인 박스 (마인크래프트 UI 나무 상자 스타일) */
         .container {
-            background: rgba(101, 67, 33, 0.95); /* 밝은 배경과 대비되도록 진한 참나무색 적용 */
+            background: rgba(101, 67, 33, 0.95);
             border: 6px solid #3d2314;
             box-shadow: 0 0 0 6px #000, 0 15px 40px rgba(0,0,0,0.5);
             padding: 45px 30px;
@@ -81,7 +81,6 @@
             word-break: keep-all;
         }
 
-        /* 마우스 호버(올렸을 때) 효과 - 잔디 블록 색상 */
         .menu-item:hover {
             background: #5c8e32;
             box-shadow: inset -4px -4px 0px #2e4e1a, inset 4px 4px 0px #92cf5b;
@@ -89,13 +88,11 @@
             transform: scale(1.02);
         }
 
-        /* 클릭했을 때 효과 */
         .menu-item:active {
             transform: scale(0.98);
             box-shadow: inset 4px 4px 0px #2e4e1a, inset -4px -4px 0px #92cf5b;
         }
 
-        /* 아이콘 스타일 */
         .menu-item i {
             font-size: 1.6rem;
             margin-right: 18px;
@@ -104,7 +101,6 @@
             filter: drop-shadow(2px 2px 0px #000);
         }
 
-        /* 텍스트 스타일 */
         .menu-item span {
             text-shadow: 2px 2px 0px #000;
         }
@@ -115,6 +111,147 @@
             color: #c0c0c0;
             font-size: 0.85rem;
             text-shadow: 1px 1px 0px #000;
+        }
+
+        /* --- 시간표 설정 모달 (팝업) --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-box {
+            background: #4a2e18;
+            border: 4px solid #000;
+            box-shadow: inset -4px -4px 0px #2a180b, inset 4px 4px 0px #7a4e28;
+            padding: 25px;
+            width: 90%;
+            max-width: 400px;
+            color: #fff;
+            text-align: left;
+        }
+        .modal-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 0px #000;
+            color: #ffffa0;
+        }
+        .form-group {
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .form-group label {
+            font-size: 0.95rem;
+            text-shadow: 1px 1px 0px #000;
+        }
+        .form-group input, .form-group select {
+            padding: 8px 10px;
+            font-size: 1rem;
+            border: 3px solid #000;
+            background: #fff;
+            color: #000;
+            outline: none;
+        }
+        /* 시/분 입력 선택 줄 스타일 */
+        .time-select-group {
+            display: flex;
+            gap: 8px;
+        }
+        .time-select-group select {
+            flex: 1;
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn-modal {
+            flex: 1;
+            padding: 10px;
+            font-size: 1rem;
+            border: 3px solid #000;
+            cursor: pointer;
+            text-align: center;
+            color: #fff;
+        }
+        .btn-confirm { background: #5c8e32; box-shadow: inset -2px -2px 0px #2e4e1a, inset 2px 2px 0px #92cf5b; }
+        .btn-close { background: #a83232; box-shadow: inset -2px -2px 0px #5e1a1a, inset 2px 2px 0px #d95b5b; }
+
+        /* --- 인쇄 전용 영역 --- */
+        #print-area {
+            display: none;
+        }
+
+        /* --- A4 용지 인쇄 스타일 --- */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 12mm;
+            }
+            body {
+                background: none !important;
+                padding: 0 !important;
+                display: block !important;
+                color: #000 !important;
+            }
+            .container, .modal-overlay {
+                display: none !important;
+            }
+            #print-area {
+                display: block !important;
+                width: 100%;
+                max-width: 100%;
+                font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important;
+            }
+            .print-title {
+                text-align: center;
+                font-size: 30pt;
+                font-weight: bold;
+                margin-bottom: 25px;
+                padding-bottom: 12px;
+                border-bottom: 4px solid #000;
+            }
+            .print-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .print-table th, .print-table td {
+                border: 2px solid #000;
+                padding: 22px 10px; /* 가독성을 위한 큰 여백 */
+                text-align: center;
+            }
+            .print-table th {
+                background-color: #e0e0e0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-size: 20pt;
+                font-weight: bold;
+            }
+            .print-table td {
+                font-size: 18pt;
+            }
+            
+            /* 컬럼 너비 비율 */
+            .col-period { width: 25%; }
+            .col-time { width: 50%; }
+            .col-note { width: 25%; }
+
+            .print-table tr.lunch-row {
+                background-color: #fff8e1 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-weight: bold;
+            }
+            .print-table tr.lunch-row td {
+                color: #c62828;
+            }
         }
     </style>
 </head>
@@ -138,6 +275,11 @@
                 <i class="fa-solid fa-check-to-slot" style="color: #55ffff;"></i>
                 <span>학급 투표</span>
             </a>
+
+            <div class="menu-item" onclick="openPrintModal()">
+                <i class="fa-solid fa-print" style="color: #ff77ff;"></i>
+                <span>시간표 인쇄</span>
+            </div>
         </div>
 
         <div class="footer">
@@ -145,8 +287,177 @@
         </div>
     </div>
 
+    <!-- 시간표 설정 모달 -->
+    <div class="modal-overlay" id="printModal">
+        <div class="modal-box">
+            <h2>시간표 인쇄 설정</h2>
+            <div class="form-group">
+                <label for="inputDate">날짜</label>
+                <input type="date" id="inputDate">
+            </div>
+            <div class="form-group">
+                <label>시작 시각 (1교시)</label>
+                <div class="time-select-group">
+                    <!-- 시 (Hour) 선택 -->
+                    <select id="startHour">
+                        <option value="08">08시</option>
+                        <option value="09" selected>09시</option>
+                        <option value="10">10시</option>
+                        <option value="11">11시</option>
+                        <option value="12">12시</option>
+                        <option value="13">13시</option>
+                        <option value="14">14시</option>
+                        <option value="15">15시</option>
+                        <option value="16">16시</option>
+                        <option value="17">17시</option>
+                        <option value="18">18시</option>
+                    </select>
+                    <!-- 분 (Minute) 선택 (5분 단위) -->
+                    <select id="startMinute">
+                        <option value="00" selected>00분</option>
+                        <option value="05">05분</option>
+                        <option value="10">10분</option>
+                        <option value="15">15분</option>
+                        <option value="20">20분</option>
+                        <option value="25">25분</option>
+                        <option value="30">30분</option>
+                        <option value="35">35분</option>
+                        <option value="40">40분</option>
+                        <option value="45">45분</option>
+                        <option value="50">50분</option>
+                        <option value="55">55분</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lessonDuration">교시당 시간 (분)</label>
+                <input type="number" id="lessonDuration" value="45" min="10" max="120">
+            </div>
+            <div class="form-group">
+                <label for="lunchAfter">몇 교시 후 점심 시간인가요?</label>
+                <select id="lunchAfter">
+                    <option value="4" selected>4교시 후</option>
+                    <option value="5">5교시 후</option>
+                    <option value="6">6교시 후</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="lunchDuration">점심 시간 (분)</label>
+                <input type="number" id="lunchDuration" value="50" min="10" max="180">
+            </div>
+            <div class="modal-btns">
+                <button class="btn-modal btn-confirm" onclick="generateAndPrint()">인쇄하기</button>
+                <button class="btn-modal btn-close" onclick="closePrintModal()">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 인쇄 전용 영역 -->
+    <div id="print-area">
+        <div class="print-title" id="printTitle">경희중학교 X월 X일 시간표</div>
+        <table class="print-table">
+            <thead>
+                <tr>
+                    <th class="col-period">교시 / 구분</th>
+                    <th class="col-time">시간</th>
+                    <th class="col-note">비고</th>
+                </tr>
+            </thead>
+            <tbody id="printTableBody">
+                <!-- 자바스크립트로 자동 생성 -->
+            </tbody>
+        </table>
+    </div>
+
     <script>
         document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+        // 오늘 날짜 기본값 설정
+        document.getElementById("inputDate").value = new Date().toISOString().substring(0, 10);
+
+        function openPrintModal() {
+            document.getElementById("printModal").style.display = "flex";
+        }
+
+        function closePrintModal() {
+            document.getElementById("printModal").style.display = "none";
+        }
+
+        function generateAndPrint() {
+            const dateVal = document.getElementById("inputDate").value;
+            const hourVal = document.getElementById("startHour").value;
+            const minuteVal = document.getElementById("startMinute").value;
+            
+            const lessonDuration = parseInt(document.getElementById("lessonDuration").value) || 45;
+            const lunchAfter = parseInt(document.getElementById("lunchAfter").value) || 4;
+            const lunchDuration = parseInt(document.getElementById("lunchDuration").value) || 50;
+
+            if (!dateVal) {
+                alert("날짜를 설정해주세요.");
+                return;
+            }
+
+            // 제목 설정 (경희중학교 X월 X일 시간표)
+            const dateObj = new Date(dateVal);
+            const month = dateObj.getMonth() + 1;
+            const day = dateObj.getDate();
+            document.getElementById("printTitle").innerText = `경희중학교 ${month}월 ${day}일 시간표`;
+
+            const tbody = document.getElementById("printTableBody");
+            tbody.innerHTML = "";
+
+            let currentTime = new Date();
+            currentTime.setHours(parseInt(hourVal), parseInt(minuteVal), 0, 0);
+
+            // 시간 포맷 함수 (HH:MM)
+            const formatTime = (date) => {
+                let h = date.getHours().toString().padStart(2, '0');
+                let m = date.getMinutes().toString().padStart(2, '0');
+                return `${h}:${m}`;
+            };
+
+            const breakDuration = 10; // 쉬는시간 10분 기본값
+
+            for (let period = 1; period <= 7; period++) {
+                // 교시 시작/종료 시간 계산
+                let startStr = formatTime(currentTime);
+                currentTime.setMinutes(currentTime.getMinutes() + lessonDuration);
+                let endStr = formatTime(currentTime);
+
+                // 교시 행 생성
+                let tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td><strong>${period}교시</strong></td>
+                    <td>${startStr} ~ ${endStr}</td>
+                    <td></td>
+                `;
+                tbody.appendChild(tr);
+
+                // 지정 교시 후 점심시간 삽입
+                if (period === lunchAfter) {
+                    let lunchStart = formatTime(currentTime);
+                    currentTime.setMinutes(currentTime.getMinutes() + lunchDuration);
+                    let lunchEnd = formatTime(currentTime);
+
+                    let lunchTr = document.createElement("tr");
+                    lunchTr.className = "lunch-row";
+                    lunchTr.innerHTML = `
+                        <td><strong>점심시간</strong></td>
+                        <td>${lunchStart} ~ ${lunchEnd}</td>
+                        <td>점심 식사</td>
+                    `;
+                    tbody.appendChild(lunchTr);
+                } else if (period < 7) {
+                    // 쉬는 시간 (10분)
+                    currentTime.setMinutes(currentTime.getMinutes() + breakDuration);
+                }
+            }
+
+            closePrintModal();
+            setTimeout(() => {
+                window.print();
+            }, 100);
+        }
     </script>
 </body>
 </html>
