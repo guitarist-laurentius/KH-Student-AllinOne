@@ -224,7 +224,7 @@
             }
             .print-table th, .print-table td {
                 border: 2px solid #000;
-                padding: 22px 10px; /* 가독성을 위한 큰 여백 */
+                padding: 22px 10px;
                 text-align: center;
             }
             .print-table th {
@@ -298,7 +298,6 @@
             <div class="form-group">
                 <label>시작 시각 (1교시)</label>
                 <div class="time-select-group">
-                    <!-- 시 (Hour) 선택 -->
                     <select id="startHour">
                         <option value="08">08시</option>
                         <option value="09" selected>09시</option>
@@ -312,7 +311,6 @@
                         <option value="17">17시</option>
                         <option value="18">18시</option>
                     </select>
-                    <!-- 분 (Minute) 선택 (5분 단위) -->
                     <select id="startMinute">
                         <option value="00" selected>00분</option>
                         <option value="05">05분</option>
@@ -354,7 +352,7 @@
 
     <!-- 인쇄 전용 영역 -->
     <div id="print-area">
-        <div class="print-title" id="printTitle">경희중학교 X월 X일 시간표</div>
+        <div class="print-title" id="printTitle">경희중학교 일과 시간표</div>
         <table class="print-table">
             <thead>
                 <tr>
@@ -397,11 +395,12 @@
                 return;
             }
 
-            // 제목 설정 (경희중학교 X월 X일 시간표)
-            const dateObj = new Date(dateVal);
-            const month = dateObj.getMonth() + 1;
-            const day = dateObj.getDate();
-            document.getElementById("printTitle").innerText = `경희중학교 ${month}월 ${day}일 시간표`;
+            // 조건별 제목 처리 (45분 수업 여부 판별)
+            if (lessonDuration === 45) {
+                document.getElementById("printTitle").innerText = "경희중학교 일과 시간표";
+            } else {
+                document.getElementById("printTitle").innerText = `경희중학교 일과 시간표(${lessonDuration}분 압축수업)`;
+            }
 
             const tbody = document.getElementById("printTableBody");
             tbody.innerHTML = "";
