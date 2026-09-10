@@ -321,14 +321,8 @@
     <div class="modal-overlay" id="printModal">
         <div class="modal-box">
             <h2>시간표 인쇄 설정</h2>
-            
-            <!-- 1. 날짜 -->
-            <div class="form-group">
-                <label for="inputDate">날짜</label>
-                <input type="date" id="inputDate">
-            </div>
 
-            <!-- 2. 시작시각 (1교시) -->
+            <!-- 1. 시작시각 (1교시) -->
             <div class="form-group">
                 <label>시작시각 (1교시)</label>
                 <div class="time-select-group">
@@ -362,42 +356,45 @@
                 </div>
             </div>
 
-            <!-- 3. 교시당 시간 (분) -->
+            <!-- 2. 교시당 시간 (분) -->
             <div class="form-group">
                 <label for="lessonDuration">교시당 시간 (분)</label>
                 <input type="number" id="lessonDuration" value="45" min="10" max="120">
             </div>
 
-            <!-- 4. 쉬는시간 (분) -->
+            <!-- 3. 쉬는시간 (분) -->
             <div class="form-group">
                 <label for="breakDuration">쉬는시간 (분)</label>
                 <input type="number" id="breakDuration" value="10" min="0" max="60">
             </div>
 
-            <!-- 5. 몇 교시 후 점심 시간인지? -->
+            <!-- 4. 몇 교시 후 점심 시간인지? -->
             <div class="form-group">
                 <label for="lunchAfter">몇 교시 후 점심 시간인가요?</label>
                 <select id="lunchAfter">
+                    <option value="1">1교시 후</option>
+                    <option value="2">2교시 후</option>
                     <option value="3">3교시 후</option>
                     <option value="4" selected>4교시 후</option>
                     <option value="5">5교시 후</option>
                     <option value="6">6교시 후</option>
+                    <option value="7">7교시 후</option>
                 </select>
             </div>
 
-            <!-- 6. 점심시간 몇 분인지? -->
+            <!-- 5. 점심시간 몇 분인지? -->
             <div class="form-group">
                 <label for="lunchDuration">점심 시간 (분)</label>
                 <input type="number" id="lunchDuration" value="55" min="10" max="180">
             </div>
 
-            <!-- 7. 급식 없는 날 체크박스 -->
+            <!-- 6. 급식 없는 날 체크박스 -->
             <div class="form-group checkbox-group">
                 <input type="checkbox" id="noLunch">
                 <label for="noLunch">급식 없는 날 (점심시간 제외)</label>
             </div>
 
-            <!-- 8. 몇 교시 후 일과를 마치는지? -->
+            <!-- 7. 몇 교시 후 일과를 마치는지? -->
             <div class="form-group">
                 <label for="totalPeriods">몇 교시 후 일과를 마치나요?</label>
                 <select id="totalPeriods">
@@ -411,7 +408,7 @@
                 </select>
             </div>
 
-            <!-- 9. 하단 메모 기입 란 -->
+            <!-- 8. 하단 메모 기입 란 -->
             <div class="form-group">
                 <label for="inputMemo">메모 (하단 표기용)</label>
                 <input type="text" id="inputMemo" placeholder="예: 단축수업 진행 / 하교시간 안내 등">
@@ -446,9 +443,6 @@
     <script>
         document.getElementById("currentYear").textContent = new Date().getFullYear();
 
-        // 오늘 날짜 기본값 설정
-        document.getElementById("inputDate").value = new Date().toISOString().substring(0, 10);
-
         function openPrintModal() {
             document.getElementById("printModal").style.display = "flex";
         }
@@ -469,7 +463,7 @@
             const totalPeriods = parseInt(document.getElementById("totalPeriods").value) || 7;
             const memoVal = document.getElementById("inputMemo").value.trim();
 
-            // 상단 제목 처리 (45분 정상 수업 여부에 따른 자동 표기)
+            // 상단 제목 처리
             if (lessonDuration === 45) {
                 document.getElementById("printTitle").innerText = "경희중학교 일과 시간표";
             } else {
@@ -512,8 +506,8 @@
                 `;
                 tbody.appendChild(tr);
 
-                // 지정 교시 후 점심시간 삽입 (급식 없는 날 체크시 제외)
-                if (!noLunch && period === lunchAfter && period < totalPeriods) {
+                // 급식 없는 날이 체크되지 않았다면 설정된 교시 후에 점심시간 추가 (마지막 교시 직후라도 포함)
+                if (!noLunch && period === lunchAfter) {
                     let lunchStart = formatTime(currentTime);
                     currentTime.setMinutes(currentTime.getMinutes() + lunchDuration);
                     let lunchEnd = formatTime(currentTime);
