@@ -720,7 +720,15 @@ $('rGrade').onchange = fillRosterClasses;
 
 // 전화번호를 누르면 메시지 앱(sms:)으로 연결
 function smsLink(num) { const raw = String(num).trim(), digits = raw.replace(/[^0-9+]/g, '');
-  return digits ? `<a class="sms" href="sms:${digits}" title="${h(raw)}에게 문자 보내기">${h(raw)}</a>` : h(raw); }
+  return digits ? `<a class="sms" href="sms:${digits}" data-num="${h(raw)}"${IN_ARTIFACT ? ' target="_blank" rel="noopener"' : ''} title="${h(raw)}에게 문자 보내기 (Mac 메시지 앱)">${h(raw)}</a>` : h(raw); }
+const IN_ARTIFACT = !!(window.claude && window.claude.use);
+// 누를 때 번호도 함께 복사: 메시지 앱이 열리지 않는 환경(Claude 아티팩트 화면 등)에서는 붙여넣어 쓰면 된다
+document.addEventListener('click', e => {
+  const a = e.target.closest('a.sms'); if (!a) return;
+  const num = a.dataset.num || '';
+  try { navigator.clipboard.writeText(num).catch(() => {}); } catch (err) {}
+  toast(IN_ARTIFACT ? `📋 ${num} 복사했어요 · 메시지 앱이 안 열리면 붙여넣어 주세요` : `💬 메시지 앱을 여는 중… (번호 ${num} 도 복사해 두었어요)`);
+});
 function showMy() {
   if (needFile()) return;
   const title = '우리반 상세정보', small = `(${D.myName || '미지정'})`;
