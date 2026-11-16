@@ -507,6 +507,7 @@ footer.sign { text-align: center; font-family: var(--display); font-size: 1.1rem
     </div>
     <div class="grp"><b>검색</b><input type="search" id="kQ" placeholder="교직원·자녀·과목" style="width:150px"></div>
     <div class="spacer"></div>
+    <button class="btn" id="btnAllKids" type="button" aria-pressed="false">📋 자녀 전체 보기</button>
     <button class="btn" id="btnPrintKids" type="button" disabled>🖨️ 인쇄용 파일 저장</button>
   </div>
   <div class="kevs" id="kEvents" hidden></div>
@@ -1153,13 +1154,16 @@ kw.innerHTML = `<div class="kwh" id="kwHead"><b id="kwTitle"></b><span class="kw
 document.body.appendChild(kw);
 function openWin(type, key) { kWin = {type, key}; refreshWin(); }
 function closeWin() { kWin = null; kw.hidden = true; if (kSel) { kSel = null; drawKids(); } }
-const STAGE_TITLE = () => ({now: `${$('kYear').value}년 입학·졸업 자녀`, next: `${(+$('kYear').value || 0) + 1}년 입학·졸업 예정 자녀`, pre: '미취학 자녀', '초': '초등학교 재학 자녀', '중': '중학교 재학 자녀', '고': '고등학교 재학 자녀', adult: '성인 자녀'});
+const STAGE_TITLE = () => ({now: `${$('kYear').value}년 입학·졸업 자녀`, next: `${(+$('kYear').value || 0) + 1}년 입학·졸업 예정 자녀`, pre: '미취학 자녀', '초': '초등학교 재학 자녀', '중': '중학교 재학 자녀', '고': '고등학교 재학 자녀', adult: '성인 자녀', all: '교직원 자녀 전체'});
 function winData() {
   if (!kWin || !kRender) return null;
   if (kWin.type === 'stage') {
     const ev = kWin.key === 'now' || kWin.key === 'next';
     const evOrder = k => { const e = k.ev.find(x => x.when === kWin.key); return e ? 'emhg'.indexOf(e.key) : 9; };
-    const kids = kRender.all.filter(kRender.pass).sort((a, b) => (ev ? evOrder(a) - evOrder(b) : 0) || b.birth - a.birth || a.staff.localeCompare(b.staff, 'ko'));
+    const staffOrder = {}; kShown.forEach((x, i) => staffOrder[x.name] = i);
+    const kids = kRender.all.filter(kRender.pass).sort(kWin.key === 'all'
+      ? (a, b) => (staffOrder[a.staff] ?? 999) - (staffOrder[b.staff] ?? 999) || a.birth - b.birth   // 전체: 과목 묶음·교직원 순, 형제는 나이순
+      : (a, b) => (ev ? evOrder(a) - evOrder(b) : 0) || b.birth - a.birth || a.staff.localeCompare(b.staff, 'ko'));
     const evCell = k => ev ? k.ev.filter(e => e.when === kWin.key).map(e => e.label).join(', ') : kRender.evHtml(k);
     if (!kids.length) return null;
     const rows = kids.map(k => `<tr><td>${k.grade}</td><td class="kid"><b>${h(k.name)}</b></td><td>${h(k.sex)}</td><td>${k.age}세</td><td class="yr">${k.birth}년생</td><td><b>${h(k.staff)}</b></td><td>${h(kRender.subjOf[k.staff] || '')}</td><td class="kid">${evCell(k)}</td></tr>`).join('');
@@ -1175,6 +1179,8 @@ function winData() {
   return {title, sub: `교직원 ${list.length}명 · 자녀 ${n}명 · ${$('kYear').value}년 기준`, table};
 }
 function refreshWin() {
+  const ab = document.getElementById('btnAllKids');
+  if (ab) { const on = !!(kWin && kWin.type === 'stage' && kWin.key === 'all'); ab.classList.toggle('pri', on); ab.setAttribute('aria-pressed', on); }
   const d = winData();
   if (!d) { kw.hidden = true; return; }
   $('kwTitle').innerHTML = `${h(d.title)} <small>${h(d.sub)}</small>`;
@@ -1182,7 +1188,14 @@ function refreshWin() {
   const wasHidden = kw.hidden; kw.hidden = false;
   if (wasHidden && !kw.dataset.moved) { kw.style.left = ''; kw.style.top = ''; }
 }
-$('kwClose').onclick = closeWin;
+$('kwClose').onclick = () => { closeWin(); refreshWin(); };
+$('btnAllKids').onclick = () => {
+  if (!D.kids.length) return toast('먼저 기본정보.xlsx를 불러오세요.');
+  if (kWin && kWin.type === 'stage' && kWin.key === 'all') { kWin = null; kw.hidden = true; refreshWin(); return; }  // 다시 누르면 닫기
+  kFilter = 'all'; kSel = null; kGroup = null;
+  document.querySelectorAll('[data-kf]').forEach(x => x.classList.toggle('pri', x.dataset.kf === 'all'));
+  kWin = {type: 'stage', key: 'all'}; drawKids();
+};
 addEventListener('keydown', e => { if (e.key === 'Escape' && !kw.hidden && $('dim').hidden) closeWin(); });
 $('kwPrint').onclick = () => { const d = winData(); if (!d) return;
   deliver(d.title, d.title, ROSTER_CSS + `.bd{font-weight:bold;border:1px solid #000;border-radius:8px;padding:0 4px;margin-right:3px}.yr{font-size:10px}td.kid{text-align:left;padding-left:6px}`,
