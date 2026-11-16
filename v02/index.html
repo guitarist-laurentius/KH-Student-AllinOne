@@ -147,6 +147,9 @@ table.t { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-
 .t tbody tr:hover td { background: var(--butter-l); }
 .t td.l { text-align: left; white-space: normal; min-width: 240px; color: var(--ink-soft); }
 .t td.n { color: var(--pink-d); font-family: var(--display); font-weight: 700; font-size: 1.1rem; }
+.sms { color: var(--pink-d); text-decoration: underline dotted; text-underline-offset: 3px; font-variant-numeric: tabular-nums; }
+.sms::before { content: "✉ "; font-size: .85em; }
+.sms:hover { background: var(--pink-l); border-radius: 4px; text-decoration-style: solid; }
 .out { text-decoration: line-through wavy var(--pink-d); color: var(--muted); }
 .print-only { display: none; }
 .results { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; font-size: .9rem; }
@@ -715,6 +718,9 @@ function fillRosterClasses() {
 }
 $('rGrade').onchange = fillRosterClasses;
 
+// 전화번호를 누르면 메시지 앱(sms:)으로 연결
+function smsLink(num) { const raw = String(num).trim(), digits = raw.replace(/[^0-9+]/g, '');
+  return digits ? `<a class="sms" href="sms:${digits}" title="${h(raw)}에게 문자 보내기">${h(raw)}</a>` : h(raw); }
 function showMy() {
   if (needFile()) return;
   const title = '우리반 상세정보', small = `(${D.myName || '미지정'})`;
@@ -728,9 +734,9 @@ function showMy() {
     let sp = '';
     if (D.myGrade && D.myClass) { const m = D.rosters[D.myGrade].find(x => x.cls == D.myClass && x.name === name); if (m) sp = icon(m.note); }
     let parent = '미입력';
-    if (s['어머니 핸드폰']) parent = `${s['어머니 핸드폰']}(모) ${String(s['어머니 이름'] || '').trim()}`;
-    else if (s['아버지 핸드폰']) parent = `${s['아버지 핸드폰']}(부) ${String(s['아버지 이름'] || '').trim()}`;
-    html += `<tr><td class="n">${h(s['번호'])}</td><td>${cake}<b>${h(name)}</b>${sp}</td><td>${h(s['핸드폰'] || '미입력')}</td><td>${h(parent)}</td><td>${h(birth)}</td><td class="l">${h(s['주소'] || '미입력')}</td></tr>`;
+    if (s['어머니 핸드폰']) parent = `${smsLink(s['어머니 핸드폰'])}(모) ${h(String(s['어머니 이름'] || '').trim())}`;
+    else if (s['아버지 핸드폰']) parent = `${smsLink(s['아버지 핸드폰'])}(부) ${h(String(s['아버지 이름'] || '').trim())}`;
+    html += `<tr><td class="n">${h(s['번호'])}</td><td>${cake}<b>${h(name)}</b>${sp}</td><td>${s['핸드폰'] ? smsLink(s['핸드폰']) : '미입력'}</td><td>${parent}</td><td>${h(birth)}</td><td class="l">${h(s['주소'] || '미입력')}</td></tr>`;
   });
   setOut(title, small, '🎂 이번 달 생일 · 🏑 하키부 · ⚽ 축구부', html + '</tbody></table></div>', `${D.myName || '우리반'} 상세정보`);
 }
@@ -779,7 +785,7 @@ $('q').oninput = () => {
   ul.innerHTML = found.length ? found.map(s => `<li>${s.grade}학년 ${s.cls}반 ${s.num}번 <b>${h(s.name)}</b>${icon(s.note)}${s.note === '전출' ? ' (전출)' : ''} · 담임 ${h(teacherOf(s.grade, s.cls))}</li>`).join('')
     : `<li>'${h(q)}' 관련 학생 없음</li>`;
 };
-const ROSTER_CSS = `@page{size:A4 portrait;margin:10mm}body{font-size:10pt;line-height:1.2}
+const ROSTER_CSS = `@page{size:A4 portrait;margin:10mm}a.sms{color:#000;text-decoration:none}body{font-size:10pt;line-height:1.2}
 h3{margin:0 0 5px;font-size:14pt}h3 small{font-size:10pt;font-weight:normal;margin-left:8px}.note{font-size:12px;margin:0 0 5px}
 table{width:100%;table-layout:fixed;border-collapse:collapse;border:2px solid #000}
 th,td{border:1px solid #000;padding:6px 2px;font-size:11px;text-align:center;white-space:nowrap;overflow:hidden}
