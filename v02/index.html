@@ -1139,7 +1139,7 @@ function drawKids() {
   $('btnPrintKids').disabled = !kPrint;
   hideTip();
   if (!kShown.length) { $('kOut').innerHTML = '<div class="empty">조건에 맞는 교직원이 없습니다.</div>'; return; }
-  const btn = (x, i, multi) => `<button type="button" class="sbtn${x.name === kSel ? ' on' : ''}" data-si="${i}" aria-pressed="${x.name === kSel}">${h(x.name)}<span class="cnt">${multi && x.subj ? h(x.subj) + ' · ' : ''}${x.kids.length}</span>${x.kids.some(k => k.ev.length) ? '<span class="dot" title="올해·내년 입학/졸업 있음"></span>' : ''}</button>`;
+  const btn = (x, i, multi) => `<button type="button" class="sbtn${x.name === kSel ? ' on' : ''}" data-si="${i}" aria-pressed="${x.name === kSel}">${h(x.name)}<span class="cnt">${x.kids.length}</span>${x.kids.some(k => k.ev.length) ? '<span class="dot" title="올해·내년 입학/졸업 있음"></span>' : ''}</button>`;
   const gnames = kGroup ? [kGroup] : kAllGroups;
   $('kOut').innerHTML = (kGroup ? `<div class="kgbar"><span>과목 묶음 <b>${h(kGroup)}</b>만 보는 중</span><button class="btn" type="button" data-kall>전체 과목 보기</button></div>` : '') +
     `<div class="sgroups">${gnames.map(g => { const multi = g.includes(' · '), n = kShown.filter(x => x.group === g).length;
