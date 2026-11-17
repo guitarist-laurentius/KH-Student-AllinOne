@@ -1,3 +1,4 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>경희중학교 학생관리 ver.02</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&display=swap">
@@ -139,6 +140,7 @@ input[type="checkbox"] { accent-color: var(--pink-d); width: 17px; height: 17px;
 .outhead h2 small { font-family: var(--body); font-weight: 400; color: var(--ink-soft); font-size: .95rem; margin-left: 8px; }
 .note { font-size: .84rem; color: var(--muted); margin: -8px 0 0; }
 .tw { overflow-x: auto; border: 1.5px solid var(--line-2); border-radius: var(--r); background: var(--paper); }
+table { color: inherit; }
 table.t { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .t th, .t td { border-bottom: 1px dashed var(--line); border-right: 1px solid var(--line); padding: 8px 10px; text-align: center; white-space: nowrap; }
 .t th:last-child, .t td:last-child { border-right: 0; }
@@ -249,7 +251,7 @@ table.t { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-
 .sheet { position: relative; background: var(--sheet); color: var(--sheet-ink); border-radius: 3px; padding: clamp(18px, 4vw, 38px); box-shadow: 0 16px 32px -16px rgba(80, 40, 60, .55), 0 0 0 1px rgba(80,40,60,.1); font-family: "Malgun Gothic", "Apple SD Gothic Neo", var(--body); transform: rotate(.4deg); }
 .sheet::before { content: ""; position: absolute; top: -12px; left: 50%; width: 130px; height: 26px; margin-left: -65px; background: var(--tape-c); transform: rotate(-2deg); }
 .sheet h2 { text-align: center; font-size: clamp(1.2rem, 3vw, 1.9rem); margin: 0 0 16px; padding-bottom: 10px; border-bottom: 3px solid var(--sheet-ink); text-wrap: balance; }
-.sheet table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.sheet table { color: inherit; width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .sheet th, .sheet td { border: 2px solid var(--sheet-ink); padding: clamp(6px, 1.6vw, 13px) 6px; text-align: center; }
 .sheet th { background: #e0e0e0; }
 .sheet td:nth-child(2) { font-size: clamp(1.05rem, 2.8vw, 1.6rem); font-weight: 700; letter-spacing: .03em; }
@@ -1251,3 +1253,5 @@ $('btnPrintKids').onclick = () => {
 fillSeatClasses(); renderSeats(); ttMode = 'normal'; markPreset(); drawTT(); drawChips(); setMode(mode);
 })();
 </script>
+
+</body></html>
