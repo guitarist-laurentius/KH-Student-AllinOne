@@ -74,6 +74,11 @@ h1 .ver { display: inline-block; vertical-align: middle; margin-left: 8px; font-
 .modesw button:hover { background: var(--pink-l); }
 .modesw button[aria-checked="true"] { background: var(--mint); color: var(--on-pastel); }
 .modesw button[data-mode="office"][aria-checked="true"] { background: var(--lav); }
+.swrow { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+.modesw.theme button { font-size: 1.05rem; padding: 3px 12px; }
+.modesw.theme button[aria-checked="true"] { background: var(--butter); }
+.modesw.theme button[data-theme="dark"][aria-checked="true"] { background: var(--sky); }
+:root[data-theme="light"] { color-scheme: light; }
 body.classroom .tab[data-tab="roster"], body.classroom .tab[data-tab="staff"] { display: none; }
 body.classroom .meta { visibility: hidden; }
 .filebox { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; justify-content: flex-end; }
@@ -346,9 +351,16 @@ footer.sign { text-align: center; font-family: var(--display); font-size: 1.1rem
         <svg class="doodle d2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.3-9.2C1.4 8.4 3.6 5 7 5c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.4 0 5.6 3.4 4.3 6.8C19.5 16.4 12 21 12 21z" fill="var(--pink)" stroke="var(--ink-soft)" stroke-width="1.4" stroke-linejoin="round"/></svg>
       </div>
       <div class="topright">
+      <div class="swrow">
+      <div class="modesw theme" role="radiogroup" aria-label="화면 색" id="themeSw">
+        <button type="button" role="radio" data-theme="auto" aria-checked="true" title="컴퓨터 설정 따라가기">🖥️ 자동</button>
+        <button type="button" role="radio" data-theme="light" aria-checked="false">☀️ 라이트</button>
+        <button type="button" role="radio" data-theme="dark" aria-checked="false">🌙 다크</button>
+      </div>
       <div class="modesw" role="radiogroup" aria-label="화면 모드" id="modeSw">
         <button type="button" role="radio" data-mode="class" aria-checked="false">🏫 교실용</button>
         <button type="button" role="radio" data-mode="office" aria-checked="true">☕ 교무실용</button>
+      </div>
       </div>
       <div class="filebox">
         <input type="file" id="file" accept=".xlsx,.xls" hidden>
@@ -613,6 +625,14 @@ function showTab(name) {
 }
 $('tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (!b) return; location.hash = b.dataset.tab; showTab(b.dataset.tab); });
 addEventListener('hashchange', () => showTab(location.hash.slice(1)));
+function setTheme(t) {
+  if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  else { t = 'auto'; document.documentElement.removeAttribute('data-theme'); }
+  document.querySelectorAll('#themeSw [data-theme]').forEach(b => b.setAttribute('aria-checked', b.dataset.theme === t));
+  try { localStorage.setItem('kh-theme', t); } catch (e) {}
+}
+{ let t = 'auto'; try { t = localStorage.getItem('kh-theme') || 'auto'; } catch (e) {} setTheme(t); }
+$('themeSw').addEventListener('click', e => { const b = e.target.closest('[data-theme]'); if (b) setTheme(b.dataset.theme); });
 $('modeSw').addEventListener('click', e => { const b = e.target.closest('[data-mode]'); if (b && b.dataset.mode !== mode) { $('results').hidden = true; setMode(b.dataset.mode); } });
 
 /* ---------- 엑셀 읽기 ---------- */
