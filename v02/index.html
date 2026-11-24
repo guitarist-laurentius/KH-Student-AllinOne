@@ -1,7 +1,7 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>경희중학교 학생관리 ver.02</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;700&family=Nanum+Pen+Script&family=Nanum+Gothic:wght@400;700&family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700&display=swap">
 <style>
 /* 레이아웃: 책상 위에 펼친 담임 다이어리. 위쪽 색 인덱스 탭 5개, 각 탭은 모눈 종이 한 장 + 마스킹테이프.
    손글씨(Gaegu)는 제목·라벨·숫자 강조에만, 본문과 표는 읽기 쉬운 고운돋움. */
@@ -327,6 +327,118 @@ table.t { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-
 #toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%) rotate(-1deg); z-index: 90; background: var(--mint); color: var(--on-pastel);
   border: 2px solid var(--ink-soft); padding: 6px 20px; border-radius: 999px; font-family: var(--display); font-size: 1.2rem; font-weight: 700; max-width: calc(100% - 32px); text-align: center; box-shadow: 3px 3px 0 var(--ink-soft); }
 footer.sign { text-align: center; font-family: var(--display); font-size: 1.1rem; color: var(--muted); padding-block: 0 28px; }
+
+/* ───── 테마(스킨): data-skin = diary(기본) | chief | tired | energy ───── */
+:root[data-skin="chief"] { --desk: #eef1f5; --desk-dot: #e6eaf0; --paper: #ffffff; --paper-2: #f7f9fb; --grid: #eef2f6; --ink: #1c2633; --ink-soft: #44505f; --muted: #6b7685; --line: #e2e7ee; --line-2: #c3ccd8; --pink: #d4e0f2; --pink-l: #edf2fa; --pink-d: #1f4e8c; --mint: #cfe7dc; --mint-l: #ebf6f1; --mint-d: #1f7a5a; --butter: #f2e3b5; --butter-l: #fbf6e6; --lav: #dcdcef; --lav-l: #f1f1f9; --sky: #cde3f1; --sky-l: #ecf5fb; --peach: #f3d9c9; --on-pastel: #1c2633; --board: #2f5d50; --board-ink: #f7faf8; --tape-a: transparent; --tape-b: transparent; --tape-c: transparent; --shadow: 0 1px 2px rgba(20,30,45,.06), 0 10px 26px -18px rgba(20,30,45,.35); --display: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; --body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; --r: 8px; }
+@media (prefers-color-scheme: dark) { :root[data-skin="chief"]:not([data-theme="light"]) { --desk: #12161c; --desk-dot: #12161c; --paper: #1b2129; --paper-2: #20272f; --grid: #232b34; --ink: #e8edf3; --ink-soft: #c2cad4; --muted: #95a0ad; --line: #2c3540; --line-2: #3f4a58; --pink-l: #1f2c3f; --pink-d: #8fb5ec; --mint-l: #17302a; --mint-d: #79d0ad; --butter-l: #34301f; --lav-l: #2a2a3d; --sky-l: #1b2e3b; --board: #2a4d43; --shadow: 0 10px 30px -14px rgba(0,0,0,.7); color-scheme: dark } }
+:root[data-skin="chief"][data-theme="dark"] { --desk: #12161c; --desk-dot: #12161c; --paper: #1b2129; --paper-2: #20272f; --grid: #232b34; --ink: #e8edf3; --ink-soft: #c2cad4; --muted: #95a0ad; --line: #2c3540; --line-2: #3f4a58; --pink-l: #1f2c3f; --pink-d: #8fb5ec; --mint-l: #17302a; --mint-d: #79d0ad; --butter-l: #34301f; --lav-l: #2a2a3d; --sky-l: #1b2e3b; --board: #2a4d43; --shadow: 0 10px 30px -14px rgba(0,0,0,.7); color-scheme: dark }
+:root[data-skin="tired"] { --desk: #d9cdb8; --desk-dot: #cdbfa5; --paper: #f6f1e6; --paper-2: #efe8da; --grid: #e2d9c6; --ink: #3b342c; --ink-soft: #5e554a; --muted: #857a6c; --line: #e0d6c4; --line-2: #c7b9a1; --pink: #e3c9ac; --pink-l: #f2e5d5; --pink-d: #8a5a36; --mint: #c9d3bd; --mint-l: #e8ede1; --mint-d: #56704a; --butter: #e8d59c; --butter-l: #f5edd2; --lav: #d6d1ca; --lav-l: #ece8e2; --sky: #c2ced6; --sky-l: #e3e9ed; --peach: #e6c3a8; --on-pastel: #3b342c; --board: #4b5a52; --board-ink: #f2efe6; --tape-a: rgba(150,150,145,.6); --tape-b: rgba(205,190,160,.65); --tape-c: rgba(205,185,120,.6); --shadow: 0 1px 0 rgba(60,45,30,.08), 0 10px 22px -14px rgba(60,45,30,.45); --display: "Nanum Pen Script", "Nanum Gothic", "Apple SD Gothic Neo", cursive; --body: "Nanum Gothic", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; --r: 10px; }
+@media (prefers-color-scheme: dark) { :root[data-skin="tired"]:not([data-theme="light"]) { --desk: #1c1916; --desk-dot: #25211c; --paper: #2a2621; --paper-2: #2f2a24; --grid: #36302a; --ink: #ece4d6; --ink-soft: #d0c5b4; --muted: #a89c8a; --line: #3e372f; --line-2: #564c41; --pink-l: #3f3226; --pink-d: #dcaa80; --mint-l: #2b3326; --mint-d: #a9c296; --butter-l: #3d3622; --lav-l: #34312d; --sky-l: #2a3237; --board: #3a4740; --tape-a: rgba(150,150,145,.4); --tape-b: rgba(205,190,160,.4); --tape-c: rgba(205,185,120,.4); --shadow: 0 10px 30px -12px rgba(0,0,0,.7); color-scheme: dark } }
+:root[data-skin="tired"][data-theme="dark"] { --desk: #1c1916; --desk-dot: #25211c; --paper: #2a2621; --paper-2: #2f2a24; --grid: #36302a; --ink: #ece4d6; --ink-soft: #d0c5b4; --muted: #a89c8a; --line: #3e372f; --line-2: #564c41; --pink-l: #3f3226; --pink-d: #dcaa80; --mint-l: #2b3326; --mint-d: #a9c296; --butter-l: #3d3622; --lav-l: #34312d; --sky-l: #2a3237; --board: #3a4740; --tape-a: rgba(150,150,145,.4); --tape-b: rgba(205,190,160,.4); --tape-c: rgba(205,185,120,.4); --shadow: 0 10px 30px -12px rgba(0,0,0,.7); color-scheme: dark }
+:root[data-skin="energy"] { --desk: #e7f0ff; --desk-dot: #cfdfff; --paper: #ffffff; --paper-2: #f5f8ff; --grid: #edf2fb; --ink: #10151f; --ink-soft: #2b3445; --muted: #5b6678; --line: #dfe6f2; --line-2: #1d2433; --pink: #ff9a52; --pink-l: #ffeadb; --pink-d: #c94400; --mint: #7fe08a; --mint-l: #e3f9e5; --mint-d: #13803a; --butter: #ffd93d; --butter-l: #fff6cc; --lav: #8fc4ff; --lav-l: #e3f0ff; --sky: #5fd6e8; --sky-l: #dcf6fa; --peach: #ff8fa3; --on-pastel: #10151f; --board: #1f6f4a; --board-ink: #ffffff; --tape-a: rgba(255,217,61,.9); --tape-b: rgba(37,99,235,.6); --tape-c: rgba(255,122,26,.75); --shadow: 6px 6px 0 #10151f; --display: "Black Han Sans", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif; --body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; --r: 12px; }
+@media (prefers-color-scheme: dark) { :root[data-skin="energy"]:not([data-theme="light"]) { --desk: #0d1220; --desk-dot: #18223a; --paper: #161d2e; --paper-2: #1b2337; --grid: #1f2840; --ink: #f2f5fb; --ink-soft: #c9d2e3; --muted: #95a1b8; --line: #2a3550; --line-2: #6d80a8; --pink-l: #3d2717; --pink-d: #ffa566; --mint-l: #173322; --mint-d: #8be895; --butter-l: #3a3315; --lav-l: #1b2c48; --sky-l: #12343a; --board: #1c5a3e; --tape-a: rgba(255,217,61,.7); --tape-b: rgba(96,150,255,.6); --tape-c: rgba(255,122,26,.6); --shadow: 6px 6px 0 #000; color-scheme: dark } }
+:root[data-skin="energy"][data-theme="dark"] { --desk: #0d1220; --desk-dot: #18223a; --paper: #161d2e; --paper-2: #1b2337; --grid: #1f2840; --ink: #f2f5fb; --ink-soft: #c9d2e3; --muted: #95a1b8; --line: #2a3550; --line-2: #6d80a8; --pink-l: #3d2717; --pink-d: #ffa566; --mint-l: #173322; --mint-d: #8be895; --butter-l: #3a3315; --lav-l: #1b2c48; --sky-l: #12343a; --board: #1c5a3e; --tape-a: rgba(255,217,61,.7); --tape-b: rgba(96,150,255,.6); --tape-c: rgba(255,122,26,.6); --shadow: 6px 6px 0 #000; color-scheme: dark }
+
+/* 꼼꼼·명쾌 교무부장: 반듯한 결재 서류. 테이프·기울기·손글씨 없이 선과 정렬로만 */
+:root[data-skin="chief"] body { background-image: none; }
+:root[data-skin="chief"] h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); letter-spacing: -.02em; }
+:root[data-skin="chief"] h1 .hl { background: none; padding: 0 0 2px; border-bottom: 4px solid var(--pink-d); }
+:root[data-skin="chief"] h1 .ver { transform: none; border-radius: 4px; background: var(--pink-d); color: var(--paper); border-color: var(--pink-d); }
+:root[data-skin="chief"] .today { font-size: .95rem; letter-spacing: .04em; }
+:root[data-skin="chief"] .doodle, :root[data-skin="chief"] .panel::before, :root[data-skin="chief"] .panel::after,
+:root[data-skin="chief"] .sheet::before, :root[data-skin="chief"] .cand::before, :root[data-skin="chief"] .dlg::before { display: none; }
+:root[data-skin="chief"] .panel { background-image: none; border-radius: 0 8px 8px 8px; border-width: 1px; border-top: 3px solid var(--pink-d); }
+:root[data-skin="chief"] .tab { font-size: 1.02rem; border-radius: 6px 6px 0 0; border-width: 1px; opacity: 1; background: var(--paper-2); color: var(--ink-soft); transform: translateY(4px); }
+:root[data-skin="chief"] .tab[aria-selected="true"] { background: var(--pink-d); color: var(--paper); border-color: var(--pink-d); transform: none; box-shadow: none; }
+:root[data-skin="chief"] .tab[aria-selected="true"]::after { display: none; }
+:root[data-skin="chief"] .modesw { border-radius: 8px; border-width: 1px; box-shadow: none; }
+:root[data-skin="chief"] .modesw button { font-size: .95rem; border-radius: 5px; padding: 4px 12px; }
+:root[data-skin="chief"] .modesw button[aria-checked="true"] { background: var(--pink-d); color: var(--paper); }
+:root[data-skin="chief"] .filebtn { font-size: 1rem; transform: none; border-radius: 6px; border-width: 1px; box-shadow: none; background: var(--pink-d); color: var(--paper); border-color: var(--pink-d); }
+:root[data-skin="chief"] .filebtn:hover, :root[data-skin="chief"] .filebtn:active { transform: none; box-shadow: none; filter: brightness(1.1); }
+:root[data-skin="chief"] .btn { border-radius: 6px; box-shadow: none; border-width: 1px; }
+:root[data-skin="chief"] .btn:hover, :root[data-skin="chief"] .btn:active { transform: none; box-shadow: none; }
+:root[data-skin="chief"] .btn.pri { background: var(--pink-d); border-color: var(--pink-d); color: var(--paper); }
+:root[data-skin="chief"] .bar { border-style: solid; border-width: 1px; border-left: 4px solid var(--pink-d); background: var(--paper-2); }
+:root[data-skin="chief"] .outhead h2, :root[data-skin="chief"] .votebox h2 { background: none; border-left: 5px solid var(--pink-d); padding: 0 0 0 10px; font-size: 1.35rem; }
+:root[data-skin="chief"] .t th { font-size: .92rem; background: var(--paper-2); border-bottom: 2px solid var(--pink-d); }
+:root[data-skin="chief"] .t th, :root[data-skin="chief"] .t td { border-bottom-style: solid; }
+:root[data-skin="chief"] .grp > b, :root[data-skin="chief"] .field label, :root[data-skin="chief"] .flabel { font-size: .95rem; }
+:root[data-skin="chief"] .stu:hover, :root[data-skin="chief"] .stu.sel { transform: none; }
+:root[data-skin="chief"] .stu { border-radius: 6px; }
+:root[data-skin="chief"] .desk.filled, :root[data-skin="chief"] .desk.filled:nth-child(n) { transform: none; border-radius: 4px; }
+:root[data-skin="chief"] .sheet { transform: none; }
+:root[data-skin="chief"] .sgh { transform: none; -webkit-mask: none; border-radius: 4px; font-size: .98rem; box-shadow: none; }
+:root[data-skin="chief"] .sbtn { border-radius: 6px; box-shadow: none; }
+:root[data-skin="chief"] .sbtn:hover { transform: none; box-shadow: none; }
+:root[data-skin="chief"] .sbtn.on { background: var(--pink-d); color: var(--paper); border-color: var(--pink-d); box-shadow: none; }
+:root[data-skin="chief"] .kev div { border-radius: 6px; box-shadow: none; }
+:root[data-skin="chief"] #kWin { border-radius: 8px; }
+:root[data-skin="chief"] #kWin .kwh { background: var(--pink-d); }
+:root[data-skin="chief"] #toast { transform: translateX(-50%); border-radius: 8px; box-shadow: none; font-size: 1rem; }
+:root[data-skin="chief"] footer.sign { font-size: .9rem; letter-spacing: .04em; }
+
+/* 오늘만 버티자 중견: 재생지 노트, 회색 박스테이프, 커피 자국 */
+:root[data-skin="tired"] { font-synthesis-weight: none; }
+:root[data-skin="tired"] body { background-image: repeating-linear-gradient(115deg, transparent 0 6px, var(--desk-dot) 6px 7px); background-size: auto; }
+:root[data-skin="tired"] .panel { background-image: linear-gradient(transparent 27px, var(--grid) 27px, var(--grid) 28px); background-size: 100% 28px; background-position: 0 6px; border-radius: 6px 12px 12px 12px; }
+:root[data-skin="tired"] .panel::before { background: var(--tape-a); transform: rotate(-2deg); }
+:root[data-skin="tired"] .panel::after { width: 130px; height: 130px; left: auto; right: 26px; bottom: 22px; transform: none; opacity: 1; z-index: 0; border-radius: 50%;
+  background: radial-gradient(circle, transparent 54%, rgba(120, 80, 45, .16) 56%, rgba(120, 80, 45, .26) 60%, rgba(120, 80, 45, .1) 63%, transparent 66%); }
+:root[data-skin="tired"] h1 .hl { background: linear-gradient(transparent 64%, var(--butter) 64%, var(--butter) 88%, transparent 88%); }
+:root[data-skin="tired"] h1 { font-size: clamp(2.6rem, 6vw, 3.6rem); font-weight: 400; }
+:root[data-skin="tired"] h1 .ver { transform: rotate(-14deg) translateY(6px); font-family: var(--body); font-size: .8rem; }
+:root[data-skin="tired"] .today { font-size: 1.4rem; }
+:root[data-skin="tired"] .tab { font-size: 1.55rem; font-weight: 400; opacity: .75; }
+:root[data-skin="tired"] .modesw button, :root[data-skin="tired"] .filebtn { font-size: 1.4rem; font-weight: 400; }
+:root[data-skin="tired"] .modesw.theme button { font-size: 1.3rem; }
+:root[data-skin="tired"] .filebtn, :root[data-skin="tired"] .filebtn:hover { transform: rotate(1deg); }
+:root[data-skin="tired"] .grp > b, :root[data-skin="tired"] .field label, :root[data-skin="tired"] .flabel { font-size: 1.4rem; font-weight: 400; }
+:root[data-skin="tired"] .outhead h2, :root[data-skin="tired"] .votebox h2 { font-size: 2.1rem; font-weight: 400; }
+:root[data-skin="tired"] .t th { font-size: 1.3rem; font-weight: 400; }
+:root[data-skin="tired"] .sgh { font-size: 1.35rem; font-weight: 400; }
+:root[data-skin="tired"] .stu:hover { transform: rotate(4deg) translateY(2px); }
+:root[data-skin="tired"] .desk.filled { transform: rotate(-3deg) translateY(2px); }
+:root[data-skin="tired"] .doodle.d1 { transform: rotate(160deg); }
+:root[data-skin="tired"] .doodle.d2 { opacity: .45; }
+:root[data-skin="tired"] footer.sign { font-size: 1.5rem; }
+
+/* 패기만점: 운동장 포스터. 굵은 외곽선, 딱 떨어지는 그림자, 원색 */
+:root[data-skin="energy"] { font-synthesis-weight: none; }
+:root[data-skin="energy"] body { background-image: radial-gradient(var(--desk-dot) 3px, transparent 3.5px); background-size: 22px 22px; background-position: 0 0; }
+:root[data-skin="energy"] h1 { font-weight: 400; font-size: clamp(2.2rem, 5.4vw, 3.3rem); letter-spacing: -.02em; }
+:root[data-skin="energy"] h1 .hl { display: inline-block; background: var(--butter); color: #10151f; padding: 2px 12px; transform: skewX(-8deg); box-shadow: 4px 4px 0 var(--ink); }
+:root[data-skin="energy"] h1 .ver { background: var(--pink); border: 2px solid var(--ink); transform: rotate(8deg); }
+:root[data-skin="energy"] .today { font-weight: 400; color: var(--pink-d); letter-spacing: .02em; }
+:root[data-skin="energy"] .panel { border: 3px solid var(--line-2); border-radius: 4px 16px 16px 16px; }
+:root[data-skin="energy"] .tab { font-weight: 400; border-width: 3px; border-color: var(--line-2); opacity: 1; border-radius: 10px 10px 0 0; }
+:root[data-skin="energy"] .tab:hover { transform: translateY(0) rotate(-2deg); }
+:root[data-skin="energy"] .tab[aria-selected="true"] { background: var(--tc); color: #10151f; box-shadow: none; }
+:root[data-skin="energy"] .tab[aria-selected="true"]::after { display: none; }
+:root[data-skin="energy"] .modesw, :root[data-skin="energy"] .filebtn { border: 2.5px solid var(--line-2); box-shadow: 4px 4px 0 var(--line-2); }
+:root[data-skin="energy"] .modesw button, :root[data-skin="energy"] .filebtn { font-weight: 400; }
+:root[data-skin="energy"] .btn { border: 2px solid var(--line-2); font-weight: 700; box-shadow: 3px 3px 0 var(--line-2); }
+:root[data-skin="energy"] .btn.pri { box-shadow: 3px 3px 0 var(--line-2); border-color: var(--line-2); }
+:root[data-skin="energy"] .bar { border: 2.5px solid var(--line-2); border-radius: 12px; }
+:root[data-skin="energy"] .outhead h2, :root[data-skin="energy"] .votebox h2 { font-weight: 400; }
+:root[data-skin="energy"] .t th { font-weight: 400; background: var(--butter); color: #10151f; border-bottom: 3px solid var(--line-2); }
+:root[data-skin="energy"] .grp > b, :root[data-skin="energy"] .field label, :root[data-skin="energy"] .flabel,
+:root[data-skin="energy"] .sgh, :root[data-skin="energy"] .wait h3, :root[data-skin="energy"] .boardbar, :root[data-skin="energy"] .vt, :root[data-skin="energy"] .cname,
+:root[data-skin="energy"] .winner, :root[data-skin="energy"] .guide, :root[data-skin="energy"] .tally .num, :root[data-skin="energy"] .dlg p, :root[data-skin="energy"] #toast,
+:root[data-skin="energy"] .t td.n, :root[data-skin="energy"] .kev h3, :root[data-skin="energy"] .kevs .kyear, :root[data-skin="energy"] #kWin .kwh b, :root[data-skin="energy"] #kTip b { font-weight: 400; }
+:root[data-skin="energy"] .sgh { -webkit-mask: none; border: 2px solid var(--line-2); transform: skewX(-6deg); }
+:root[data-skin="energy"] .sbtn { border: 2px solid var(--line-2); box-shadow: 3px 3px 0 var(--line-2); }
+:root[data-skin="energy"] .stu { border-width: 2px; }
+:root[data-skin="energy"] .stu:hover { transform: scale(1.1) rotate(-4deg); }
+:root[data-skin="energy"] .desk.filled { border: 2px solid #10151f; }
+:root[data-skin="energy"] #kWin { border: 3px solid var(--line-2); box-shadow: 8px 8px 0 var(--line-2); }
+:root[data-skin="energy"] #kWin .kwh { background: repeating-linear-gradient(-45deg, var(--butter) 0 14px, #10151f 14px 24px); }
+:root[data-skin="energy"] footer.sign { color: var(--pink-d); font-size: 1.3rem; }
+
+/* 테마 고르기 */
+.skinsw button { font-size: 1.05rem; padding: 3px 11px; }
+.skinsw button[aria-checked="true"] { background: var(--pink); }
+
 @media (max-width: 760px) {
   .topright { align-items: flex-start; }
   .seatmain, .ttmain { grid-template-columns: minmax(0, 1fr); }
@@ -351,6 +463,12 @@ footer.sign { text-align: center; font-family: var(--display); font-size: 1.1rem
         <svg class="doodle d2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.3-9.2C1.4 8.4 3.6 5 7 5c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.4 0 5.6 3.4 4.3 6.8C19.5 16.4 12 21 12 21z" fill="var(--pink)" stroke="var(--ink-soft)" stroke-width="1.4" stroke-linejoin="round"/></svg>
       </div>
       <div class="topright">
+      <div class="modesw skinsw" role="radiogroup" aria-label="테마" id="skinSw">
+        <button type="button" role="radio" data-skin="diary" aria-checked="true" title="아기자기 신입 여교사">🎀 새내기</button>
+        <button type="button" role="radio" data-skin="chief" aria-checked="false" title="꼼꼼·단순·명쾌·깔끔 교무부장 여교사">📋 교무부장</button>
+        <button type="button" role="radio" data-skin="tired" aria-checked="false" title="힘들다 힘들어, 오늘만 버티자 중견 남교사">☕ 버티자</button>
+        <button type="button" role="radio" data-skin="energy" aria-checked="false" title="아이들이 정말 좋아! 패기만점 남교사">🔥 패기</button>
+      </div>
       <div class="swrow">
       <div class="modesw theme" role="radiogroup" aria-label="화면 색" id="themeSw">
         <button type="button" role="radio" data-theme="auto" aria-checked="true" title="컴퓨터 설정 따라가기">🖥️ 자동</button>
@@ -530,7 +648,7 @@ footer.sign { text-align: center; font-family: var(--display); font-size: 1.1rem
   <div id="kOut"><div class="empty"><b>기본정보.xlsx</b>의 <b>교직원 자녀</b> 시트를 불러오면 여기에 표시됩니다.<br>열: 연번 · 자녀 이름 · 성별 · 교직원 · 출생년도 · 과목</div></div>
 </section>
 </main>
-<footer class="sign wrap">오늘도 수고했어요, 선생님 ♡</footer>
+<footer class="sign wrap" id="sign">오늘도 수고했어요, 선생님 ♡</footer>
 
 
 
@@ -625,6 +743,19 @@ function showTab(name) {
 }
 $('tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (!b) return; location.hash = b.dataset.tab; showTab(b.dataset.tab); });
 addEventListener('hashchange', () => showTab(location.hash.slice(1)));
+const SKINS = { diary: ['오늘의 학급 일지', '오늘도 수고했어요, 선생님 ♡'], chief: ['업무 일지', '확인 완료 · 오늘 업무 이상 없음 ✔'],
+  tired: ['오늘만 버티자…', '퇴근까지 조금만 더… ☕'], energy: ['오늘도 출발이다!', '얘들아 고맙다! 내일 또 달리자 🔥'] };
+let skin = 'diary';
+function setSkin(k) {
+  if (!SKINS[k]) k = 'diary'; skin = k;
+  document.documentElement.setAttribute('data-skin', k);
+  document.querySelectorAll('#skinSw [data-skin]').forEach(b => b.setAttribute('aria-checked', b.dataset.skin === k));
+  try { localStorage.setItem('kh-skin', k); } catch (e) {}
+  const t = $('today'); if (t && t.textContent) t.textContent = t.textContent.replace(/ · .*$/, ' · ' + SKINS[k][0]);
+  $('sign').textContent = SKINS[k][1];
+}
+{ let k = 'diary'; try { k = localStorage.getItem('kh-skin') || 'diary'; } catch (e) {} setSkin(k); }
+$('skinSw').addEventListener('click', e => { const b = e.target.closest('[data-skin]'); if (b) setSkin(b.dataset.skin); });
 function setTheme(t) {
   if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
   else { t = 'auto'; document.documentElement.removeAttribute('data-theme'); }
@@ -1269,7 +1400,7 @@ $('btnPrintKids').onclick = () => {
 };
 
 /* ---------- 시작 ---------- */
-(() => { const d = new Date(); $('today').textContent = `${d.getFullYear()}. ${d.getMonth() + 1}. ${d.getDate()}. ${'일월화수목금토'[d.getDay()]}요일 · 오늘의 학급 일지`; })();
+(() => { const d = new Date(); $('today').textContent = `${d.getFullYear()}. ${d.getMonth() + 1}. ${d.getDate()}. ${'일월화수목금토'[d.getDay()]}요일 · ${(SKINS[skin] || SKINS.diary)[0]}`; })();
 fillSeatClasses(); renderSeats(); ttMode = 'normal'; markPreset(); drawTT(); drawChips(); setMode(mode);
 })();
 </script>
