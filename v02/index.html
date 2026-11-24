@@ -1,7 +1,7 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>경희중학교 학생관리 ver.02</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;700&family=Nanum+Pen+Script&family=Nanum+Gothic:wght@400;700&family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;700&family=Nanum+Pen+Script&family=Nanum+Gothic:wght@400;700&family=Black+Han+Sans&family=Do+Hyeon&family=Noto+Sans+KR:wght@400;700&display=swap">
 <style>
 /* 레이아웃: 책상 위에 펼친 담임 다이어리. 위쪽 색 인덱스 탭 5개, 각 탭은 모눈 종이 한 장 + 마스킹테이프.
    손글씨(Gaegu)는 제목·라벨·숫자 강조에만, 본문과 표는 읽기 쉬운 고운돋움. */
@@ -434,6 +434,50 @@ footer.sign { text-align: center; font-family: var(--display); font-size: 1.1rem
 :root[data-skin="energy"] #kWin { border: 3px solid var(--line-2); box-shadow: 8px 8px 0 var(--line-2); }
 :root[data-skin="energy"] #kWin .kwh { background: repeating-linear-gradient(-45deg, var(--butter) 0 14px, #10151f 14px 24px); }
 :root[data-skin="energy"] footer.sign { color: var(--pink-d); font-size: 1.3rem; }
+:root[data-skin="maker"] { --desk: #cdb18b; --desk-dot: #9f8360; --paper: #f8faf7; --paper-2: #eef2ee; --grid: #dbe7e1; --ink: #1f2428; --ink-soft: #3e464d; --muted: #66707a; --line: #dde3e2; --line-2: #98a3ab; --pink: #ff9e4a; --pink-l: #ffe9d6; --pink-d: #b84f00; --mint: #9fd3c0; --mint-l: #e2f3ed; --mint-d: #1d7a5c; --butter: #ffd23a; --butter-l: #fff4c7; --lav: #b9c4cf; --lav-l: #e8edf1; --sky: #8ecae6; --sky-l: #e1f1f9; --peach: #f0b18a; --on-pastel: #1f2428; --board: #3c5a4c; --board-ink: #f2f5f2; --tape-a: rgba(178,184,190,.9); --tape-b: rgba(255,210,58,.85); --tape-c: rgba(255,158,74,.8); --shadow: 0 2px 0 rgba(0,0,0,.08), 0 14px 26px -14px rgba(40,30,15,.6); --display: "Do Hyeon", "IBM Plex Sans KR", "Apple SD Gothic Neo", sans-serif; --body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; --r: 6px; }
+@media (prefers-color-scheme: dark) { :root[data-skin="maker"]:not([data-theme="light"]) { --desk: #0b1a2e; --desk-dot: #152a46; --paper: #10325a; --paper-2: #133a66; --grid: #21507f; --ink: #eaf4ff; --ink-soft: #c4d8ee; --muted: #93b3d3; --line: #285684; --line-2: #6f9bc8; --pink-l: #4a2c14; --pink-d: #ffb072; --mint-l: #12413a; --mint-d: #8fe0c4; --butter-l: #43391a; --lav-l: #1d3f63; --sky-l: #164468; --board: #1d4a3c; --tape-a: rgba(178,184,190,.6); --tape-b: rgba(255,210,58,.7); --tape-c: rgba(255,158,74,.6); --shadow: 0 12px 30px -12px rgba(0,0,0,.75); color-scheme: dark } }
+:root[data-skin="maker"][data-theme="dark"] { --desk: #0b1a2e; --desk-dot: #152a46; --paper: #10325a; --paper-2: #133a66; --grid: #21507f; --ink: #eaf4ff; --ink-soft: #c4d8ee; --muted: #93b3d3; --line: #285684; --line-2: #6f9bc8; --pink-l: #4a2c14; --pink-d: #ffb072; --mint-l: #12413a; --mint-d: #8fe0c4; --butter-l: #43391a; --lav-l: #1d3f63; --sky-l: #164468; --board: #1d4a3c; --tape-a: rgba(178,184,190,.6); --tape-b: rgba(255,210,58,.7); --tape-c: rgba(255,158,74,.6); --shadow: 0 12px 30px -12px rgba(0,0,0,.75); color-scheme: dark }
+/* 척척 맥가이버 기술 선생님: 공구벽 타공판 위 제도용 모눈지, 라벨기 이름표, 안전 노랑·검정 경고 테이프. 다크는 청사진 */
+:root[data-skin="maker"] { font-synthesis-weight: none; }
+:root[data-skin="maker"] body { background-image: radial-gradient(var(--desk-dot) 3.2px, transparent 3.8px); background-size: 28px 28px; background-position: 14px 14px; }
+:root[data-skin="maker"] .panel { border-radius: 6px; border-width: 2px;
+  background-image: linear-gradient(var(--grid) 1.5px, transparent 1.5px), linear-gradient(90deg, var(--grid) 1.5px, transparent 1.5px),
+    linear-gradient(var(--grid) .5px, transparent .5px), linear-gradient(90deg, var(--grid) .5px, transparent .5px);
+  background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px; background-position: -1px -1px; }
+:root[data-skin="maker"] .panel::before, :root[data-skin="maker"] #p-seats::before, :root[data-skin="maker"] #p-vote::before, :root[data-skin="maker"] .sheet::before {
+  background: repeating-linear-gradient(-45deg, #ffd23a 0 10px, #1f2428 10px 20px); opacity: 1; transform: rotate(2deg); }
+:root[data-skin="maker"] .panel::after { background: var(--tape-a); transform: rotate(-52deg); }
+:root[data-skin="maker"] h1 { font-weight: 400; letter-spacing: 0; }
+:root[data-skin="maker"] h1 .hl { display: inline-block; background: #1f2428; color: #f8faf7; padding: 2px 14px 0; border-radius: 4px; letter-spacing: .06em;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.12), 0 3px 0 rgba(0,0,0,.25); }
+:root[data-skin="maker"] h1 .ver { transform: rotate(-4deg); border-radius: 3px; background: var(--pink); border: 2px solid #1f2428; font-family: var(--body); }
+:root[data-skin="maker"] .filestate, :root[data-skin="maker"] .meta, :root[data-skin="maker"] .today { color: var(--ink-soft); }
+:root[data-skin="maker"] .today { font-family: var(--body); font-size: .9rem; letter-spacing: .08em; }
+:root[data-skin="maker"] .doodle.d1 path, :root[data-skin="maker"] .doodle.d2 path { fill: var(--pink); }
+:root[data-skin="maker"] .tab { font-weight: 400; border-radius: 6px 6px 0 0; opacity: .9; }
+:root[data-skin="maker"] .tab[aria-selected="true"]::after { background: repeating-linear-gradient(-45deg, #ffd23a 0 6px, #1f2428 6px 12px); height: 6px; }
+:root[data-skin="maker"] .modesw, :root[data-skin="maker"] .filebtn { border-radius: 8px; border-width: 2px; box-shadow: 0 4px 0 var(--ink-soft); }
+:root[data-skin="maker"] .modesw button { font-weight: 400; border-radius: 5px; }
+:root[data-skin="maker"] .filebtn { font-weight: 400; transform: none; background: var(--pink); }
+:root[data-skin="maker"] .filebtn:hover { transform: translateY(-1px); box-shadow: 0 5px 0 var(--ink-soft); }
+:root[data-skin="maker"] .filebtn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink-soft); }
+:root[data-skin="maker"] .btn { border-radius: 6px; border-width: 2px; box-shadow: 0 3px 0 var(--line-2); }
+:root[data-skin="maker"] .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--line-2); }
+:root[data-skin="maker"] .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--line-2); }
+:root[data-skin="maker"] .btn.pri, :root[data-skin="maker"] .btn.pri:hover { box-shadow: 0 3px 0 var(--ink-soft); }
+:root[data-skin="maker"] .bar { border: 2px solid var(--line-2); border-radius: 6px; background: var(--butter-l); }
+:root[data-skin="maker"] .outhead h2, :root[data-skin="maker"] .votebox h2 { font-weight: 400; }
+:root[data-skin="maker"] .t th { font-weight: 400; background: var(--lav-l); border-bottom: 3px solid var(--pink); }
+:root[data-skin="maker"] .grp > b, :root[data-skin="maker"] .field label, :root[data-skin="maker"] .flabel, :root[data-skin="maker"] .sgh, :root[data-skin="maker"] .wait h3,
+:root[data-skin="maker"] .boardbar, :root[data-skin="maker"] .vt, :root[data-skin="maker"] .cname, :root[data-skin="maker"] .winner, :root[data-skin="maker"] .guide,
+:root[data-skin="maker"] .tally .num, :root[data-skin="maker"] .dlg p, :root[data-skin="maker"] #toast, :root[data-skin="maker"] .t td.n, :root[data-skin="maker"] .kev h3,
+:root[data-skin="maker"] .kevs .kyear, :root[data-skin="maker"] #kWin .kwh b, :root[data-skin="maker"] #kTip b, :root[data-skin="maker"] footer.sign { font-weight: 400; }
+:root[data-skin="maker"] .stu { border-radius: 6px; border-width: 2px; }
+:root[data-skin="maker"] .desk.filled { border-radius: 4px; box-shadow: 0 4px 0 rgba(0,0,0,.25); }
+:root[data-skin="maker"] .sgh { -webkit-mask: none; border-radius: 4px; transform: none; border: 2px solid var(--ink-soft); }
+:root[data-skin="maker"] .sbtn { border-radius: 6px; border-width: 2px; box-shadow: 0 3px 0 var(--line-2); }
+:root[data-skin="maker"] #kWin { border-radius: 8px; }
+:root[data-skin="maker"] #kWin .kwh { background: repeating-linear-gradient(-45deg, #ffd23a 0 12px, #1f2428 12px 24px); }
 
 /* 테마 고르기 */
 .skinsw button { font-size: 1.05rem; padding: 3px 11px; }
@@ -468,6 +512,7 @@ footer.sign { text-align: center; font-family: var(--display); font-size: 1.1rem
         <button type="button" role="radio" data-skin="chief" aria-checked="false" title="꼼꼼·단순·명쾌·깔끔 교무부장 여교사">📋 교무부장</button>
         <button type="button" role="radio" data-skin="tired" aria-checked="false" title="힘들다 힘들어, 오늘만 버티자 중견 남교사">☕ 버티자</button>
         <button type="button" role="radio" data-skin="energy" aria-checked="false" title="아이들이 정말 좋아! 패기만점 남교사">🔥 패기</button>
+        <button type="button" role="radio" data-skin="maker" aria-checked="false" title="척척척 만능 해결사 맥가이버 기술 선생님">🔧 맥가이버</button>
       </div>
       <div class="swrow">
       <div class="modesw theme" role="radiogroup" aria-label="화면 색" id="themeSw">
@@ -744,7 +789,8 @@ function showTab(name) {
 $('tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (!b) return; location.hash = b.dataset.tab; showTab(b.dataset.tab); });
 addEventListener('hashchange', () => showTab(location.hash.slice(1)));
 const SKINS = { diary: ['오늘의 학급 일지', '오늘도 수고했어요, 선생님 ♡'], chief: ['업무 일지', '확인 완료 · 오늘 업무 이상 없음 ✔'],
-  tired: ['오늘만 버티자…', '퇴근까지 조금만 더… ☕'], energy: ['오늘도 출발이다!', '얘들아 고맙다! 내일 또 달리자 🔥'] };
+  tired: ['오늘만 버티자…', '퇴근까지 조금만 더… ☕'], energy: ['오늘도 출발이다!', '얘들아 고맙다! 내일 또 달리자 🔥'],
+  maker: ['오늘의 수리 일지', '고장 난 거 있으면 다 가져와! 척척 고쳐 줄게 🔧'] };
 let skin = 'diary';
 function setSkin(k) {
   if (!SKINS[k]) k = 'diary'; skin = k;
